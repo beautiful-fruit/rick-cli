@@ -8,7 +8,8 @@ all: rick
 	@echo Create alias to .bashrc...
 	@sed -i "s/alias rick=~\/.rick\/rick//g" ~/.bashrc
 	@echo "\nalias rick=~/.rick/rick\n" >> ~/.bashrc
-	@echo All finish, please restart your terminal or exec "source ~/.bashrc"
+	@echo ""
+	@echo "All finish, please \033[33mrestart your terminal\033[m or exec \033[33m\"source ~/.bashrc\"\033[m"
 
 rick: rick.c
 	@echo Compiling rick roll...
