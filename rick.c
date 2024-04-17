@@ -30,7 +30,7 @@ void update_size() {
     min_col = (FRAME_WIDTH - terminal_width / 2) / 2;
     if (min_col < 0)
         min_col = 0;
-    max_col = (FRAME_WIDTH + terminal_width / 2) / 2;
+    max_col = FRAME_WIDTH + (terminal_width / 2 - FRAME_WIDTH) / 2;
     if (max_col >= FRAME_WIDTH)
         max_col = FRAME_WIDTH - 1;
 
@@ -70,8 +70,6 @@ int main() {
 
                 if (color != last) {
                     printf("\033[48;2;%hhu;%hhu;%hhum%s", r, g, b, output);
-                    // printf("%hhu %hhu %hhu", r, g, b);
-                    // getchar();
                 } else {
                     /* Same color, just send the output characters */
                     printf("%s", output);
