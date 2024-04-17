@@ -8,6 +8,6 @@ rick: rick.c
 	gcc $(CFLAGS) rick.c -o rick
 
 clean:
-	rm rick
+	rm -f rick
 	rm -rf ~/.rick
 	sed -i "s/alias rick=~\/.rick\/rick//g" ~/.bashrc
