@@ -213,3 +213,9 @@ cython_debug/
 #.idea/
 
 rick
+*.jpg
+*.jpeg
+*.png
+*.mp4
+*.gif
+*.webm
