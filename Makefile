@@ -31,11 +31,11 @@ clean:
 	@rm -rf ~/.rick
 
 	@if [ -f ~/.zshhrc ]; then \
-		echo Remove rick alias from ~/.zshrc...
-		sed -i "s/alias rick=~\/.rick\/rick//g" ~/.zshrc
-		echo Remove success.
+		echo Remove rick alias from ~/.zshrc...; \
+		sed -i "s/alias rick=~\/.rick\/rick//g" ~/.zshrc; \
+		echo Remove success.; \
 	elif [ -f ~/.bashrc ]; then \
-		echo Remove rick alias from ~/.bashrc...
-		sed -i "s/alias rick=~\/.rick\/rick//g" ~/.bashrc
-		echo Remove success.
+		echo Remove rick alias from ~/.bashrc...; \
+		sed -i "s/alias rick=~\/.rick\/rick//g" ~/.bashrc; \
+		echo Remove success.; \
 	fi
