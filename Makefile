@@ -3,7 +3,7 @@ CFLAGS	 ?= -g -Wall -Wextra -pedantic -Wwrite-strings
 all: rick
 	if [ ! -d ~/.rick ]; then mkdir ~/.rick; fi
 	mv rick ~/.rick/rick
-	echo -e "\nalias rick=~/.rick/rick\n" >> ~/.bashrc
+	echo "\nalias rick=~/.rick/rick\n" >> ~/.bashrc
 	alias rick=~/.rick/rick
 
 rick: rick.c
