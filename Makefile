@@ -4,7 +4,7 @@ all: rick
 	if [ ! -d ~/.rick ]; then mkdir ~/.rick; fi
 	mv rick ~/.rick/rick
 	echo -e "\nalias rick=~/.rick/rick\n" >> ~/.bashrc
-	source ~/.bashrc
+	alias rick=~/.rick/rick
 
 rick: rick.c
 	gcc $(CFLAGS) rick.c -o rick
