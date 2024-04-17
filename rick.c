@@ -1,6 +1,6 @@
+#include <signal.h>
 #include <stdio.h>
 #include <unistd.h>
-#include <signal.h>
 
 #include <sys/ioctl.h>
 
@@ -9,6 +9,8 @@
 #endif
 
 #include "frames.c"
+
+int max_row, min_row, max_col, min_col;
 
 void newline(int n) {
     int i = 0;
@@ -19,36 +21,37 @@ void newline(int n) {
     }
 }
 
-int main() {
-    signal(SIGINT, SIG_IGN);
-
+void update_size() {
     struct winsize w;
     ioctl(0, TIOCGWINSZ, &w);
     int terminal_width = w.ws_col;
     int terminal_height = w.ws_row;
 
-    const char *output = "  ";
-    const int delay_ms = 90;
-
-    // int terminal_width = 256;
-    // int terminal_height = 128;
-
-    int min_col = (FRAME_WIDTH - terminal_width / 2) / 2;
+    min_col = (FRAME_WIDTH - terminal_width / 2) / 2;
     if (min_col < 0)
         min_col = 0;
-    int max_col = (FRAME_WIDTH + terminal_width / 2) / 2;
+    max_col = (FRAME_WIDTH + terminal_width / 2) / 2;
     if (max_col >= FRAME_WIDTH)
         max_col = FRAME_WIDTH - 1;
 
-    int min_row = (FRAME_HEIGHT - (terminal_height - 1)) / 2;
+    min_row = (FRAME_HEIGHT - (terminal_height - 1)) / 2;
     if (min_row < 0)
         min_row = 0;
-    int max_row = (FRAME_HEIGHT + (terminal_height - 1)) / 2;
+    max_row = (FRAME_HEIGHT + (terminal_height - 1)) / 2;
     if (max_row >= FRAME_HEIGHT)
         max_col = FRAME_HEIGHT - 1;
+}
+
+int main() {
+    signal(SIGINT, SIG_IGN);
+
+    const char *output = "  ";
+    const int delay_ms = 80;
 
     char r, g, b;
     int x, y, i, last;
+
+    update_size();
 
     while (1) {
         /* Reset cursor */
@@ -85,6 +88,7 @@ int main() {
             /* Loop animation */
             i = 0;
         }
+        update_size();
         /* Wait */
         usleep(1000 * delay_ms);
     }
