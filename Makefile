@@ -5,7 +5,7 @@ all: rick
 	@if [ ! -d ~/.rick ]; then mkdir ~/.rick; fi
 	@echo Move rick into .rick directory...
 	@mv rick ~/.rick/rick
-	@if [ -f ~/.zshhrc ]; then \
+	@if [ -f ~/.zshrc ]; then \
 		echo Create alias to .zshrc...; \
 		sed -i "s/alias rick=~\/.rick\/rick//g" ~/.zshrc; \
 		echo "\nalias rick=~/.rick/rick\n" >> ~/.zshrc; \
@@ -30,7 +30,7 @@ clean:
 	@echo Remove ~/.rick directory...
 	@rm -rf ~/.rick
 
-	@if [ -f ~/.zshhrc ]; then \
+	@if [ -f ~/.zshrc ]; then \
 		echo Remove rick alias from ~/.zshrc...; \
 		sed -i "s/alias rick=~\/.rick\/rick//g" ~/.zshrc; \
 		echo Remove success.; \
