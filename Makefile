@@ -5,7 +5,7 @@ all: rick
 	mv rick ~/.rick/rick
 	sed -i "s/alias rick=~\/.rick\/rick//g" ~/.bashrc
 	echo "\nalias rick=~/.rick/rick\n" >> ~/.bashrc
-	alias rick=~/.rick/rick
+	. ~/.bashrc
 
 rick: rick.c
 	gcc $(CFLAGS) rick.c -o rick
