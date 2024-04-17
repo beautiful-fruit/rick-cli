@@ -4,11 +4,7 @@ all: rick
 
 rick: rick.c
 	gcc $(CFLAGS) rick.c -o rick
-	if [ ! -d ~/.rick ]; then
-		mkdir ~/.rick
-	fi
-	mv rick ~/.rick/rick
-	echo -e "alias rick=~/.rick/rick\n" >> ~/.bashrc
+	./install.sh
 
 clean:
 	-rm -rf ~/.rick
