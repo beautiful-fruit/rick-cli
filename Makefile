@@ -37,9 +37,9 @@ all:
 	@mv rick ~/.rick/rick
 	@if [ -f $(RC_FILE) ]; then \
 		echo Create alias to $(RC_FILE)...; \
-		sed -i "/^$/{:a;N;s/\n$//;ta}" $(RC_FILE)
 		sed -i "s/alias rick=~\/.rick\/rick//g" $(RC_FILE); \
 		echo "\nalias rick=~/.rick/rick\n" >> $(RC_FILE); \
+		sed -i "/^$$/{:a;N;s/\\n$$//;ta}" $(RC_FILE); \
 		echo ""; \
 		echo "All finish, please \033[33mrestart your terminal\033[m or exec \033[33m\"source $(RC_FILE)\"\033[m"; \
 	fi
@@ -54,6 +54,7 @@ clean:
 	@if [ -f $(RC_FILE) ]; then \
 		echo Remove rick alias from $(RC_FILE)...; \
 		sed -i "s/alias rick=~\/.rick\/rick//g" $(RC_FILE); \
+		sed -i "/^$$/{:a;N;s/\\n$$//;ta}" $(RC_FILE); \
 	fi
 	@echo Remove success.
 
