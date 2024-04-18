@@ -3,7 +3,7 @@ CFLAGS ?= -g -Wall -Wextra -pedantic -Wwrite-strings
 
 RC_FILE = 
 
--@git pull
+@-git pull
 ifeq ($(OS),Windows_NT)
 
 all:
