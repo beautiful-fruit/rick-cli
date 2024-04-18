@@ -40,6 +40,7 @@ all:
 		sed -i "s/alias rick=~\/.rick\/rick//g" $(RC_FILE); \
 		echo "\nalias rick=~/.rick/rick\n" >> $(RC_FILE); \
 		echo ""; \
+		sed -i "/^$$/{:a;N;s/\\n$$//;ta}" $(RC_FILE); \
 		echo "All finish, please \033[33mrestart your terminal\033[m or exec \033[33m\"source $(RC_FILE)\"\033[m"; \
 	fi
 
