@@ -37,6 +37,7 @@ all:
 	@mv rick ~/.rick/rick
 	@if [ -f $(RC_FILE) ]; then \
 		echo Create alias to $(RC_FILE)...; \
+		sed -i "/^$/{:a;N;s/\n$//;ta}" $(RC_FILE)
 		sed -i "s/alias rick=~\/.rick\/rick//g" $(RC_FILE); \
 		echo "\nalias rick=~/.rick/rick\n" >> $(RC_FILE); \
 		echo ""; \
