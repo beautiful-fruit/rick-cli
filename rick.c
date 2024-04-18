@@ -56,20 +56,59 @@ void update_size() {
     max_row = FRAME_HEIGHT - min_row;
 }
 
-int main() {
-    signal(SIGINT, SIG_IGN);
+int main(int argc, char *argv[]) {
+#ifdef _WIN32
+    char buf[FRAME_HEIGHT * FRAME_WIDTH + 100];
+    setvbuf(stdout, buf, _IOFBF, sizeof(buf));
+    int delay_ms = 60;
+#else
+    int delay_ms = 80;
+#endif
+
+    int can_break = 0;
+    int times = -1;
+
+    char *ptr;
+    for (int i = 1; i < argc; ++i) {
+        if (*argv[i] == '-') {
+            ptr = argv[i] + 1;
+            while (*ptr != '\0') {
+                switch (*ptr++) {
+                case 'd':
+                    delay_ms = 0;
+                    while (*ptr >= 48 && *ptr <= 57) {
+                        delay_ms *= 10;
+                        delay_ms += *ptr++ - 48;
+                    }
+                    break;
+                case 'c':
+                    times = 0;
+                    while (*ptr >= 48 && *ptr <= 57) {
+                        times *= 10;
+                        times += *ptr++ - 48;
+                    }
+                    break;
+                case 'e':
+                    can_break = 1;
+                    break;
+                default:
+                    break;
+                }
+            }
+        }
+    }
+
+    if (can_break == 0)
+        signal(SIGINT, SIG_IGN);
 
     const char *output = "  ";
-    const int delay_ms = 80;
-
     char r, g, b;
     int x, y, i = 0, last;
-
     update_size();
 
-    while (1) {
+    while (times == -1 ? 1 : times) {
         /* Reset cursor */
-        // printf("\033[m\033[H");
+        printf("\033[m\033[H");
         last = -1;
         for (y = min_row; y < max_row; ++y) {
             if (y - min_row >= terminal_height)
@@ -115,6 +154,7 @@ int main() {
 
         if (++i == FRAME_COUNT) {
             i = 0;
+            times -= 1;
         }
         update_size();
         usleep(1000 * delay_ms);
